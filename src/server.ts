@@ -83,7 +83,7 @@ function setupToolHandlers(server: Server): void {
         content: [
           {
             type: "text",
-            text: url,
+            text: "![generated_image]("+url+")",
           },
         ],
       };
