@@ -64,26 +64,40 @@ function setupToolHandlers(server: Server): void {
       const args = request.params.arguments || {};
 
       // Select the appropriate schema based on the chart type.
-      const schema = Charts[chartType].schema;
+      // const schema = Charts[chartType].schema;
+      //
+      // if (schema) {
+      //   // Use safeParse instead of parse and try-catch.
+      //   const result = schema.safeParse(args);
+      //   if (!result.success) {
+      //     throw new McpError(
+      //       ErrorCode.InvalidParams,
+      //       `Invalid parameters: ${result.error.message}`,
+      //     );
+      //   }
+      // }
 
-      if (schema) {
-        // Use safeParse instead of parse and try-catch.
-        const result = schema.safeParse(args);
-        if (!result.success) {
-          throw new McpError(
-            ErrorCode.InvalidParams,
-            `Invalid parameters: ${result.error.message}`,
-          );
-        }
-      }
+      // take the "args": {...args} and add the chartType to it
+      const imageJson = {...args, type: chartType};
+      const jsonText = JSON.stringify(imageJson);
 
-      const url = await generateChartUrl(chartType, args);
+
+      // const url = await generateChartUrl(chartType, args);
+      const markdownText = `
+\`\`\`vis-chart
+      
+      ` +
+        jsonText + `
+      
+\`\`\``
+
 
       return {
         content: [
           {
             type: "text",
-            text: "![generated_image]("+url+")",
+            // text: "![generated_image]("+url+")",
+            text: markdownText,
           },
         ],
       };
