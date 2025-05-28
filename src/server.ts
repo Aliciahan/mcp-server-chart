@@ -84,10 +84,10 @@ function setupToolHandlers(server: Server): void {
 
       // const url = await generateChartUrl(chartType, args);
       const markdownText = `
+chart:
 \`\`\`vis-chart
       
-      ` +
-        jsonText + `
+      ` + jsonText + `
       
 \`\`\``
 
